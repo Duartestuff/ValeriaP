@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <h1>Bases de datos NoSQL-No Relacionales</h1>
+        <h3>LocalStorage</h3>
+        <p>
+            Es una herramienta compatible con HTML5 y los navegadores que lo soportan. 
+            <br>
+            Gracias a esta herramienta, podemos almanacenar una gran capidad de datos de manera local en el navegador que 
+            utiliza el usuario mientras navega. La información quedará almacenada en cada sesion que inicia el usuario en
+             su navegador.
+            <br>
+            El LocalStorage trabaja de manera similar a las cookies, sin embargo, cuenta con un espacio de 5mb y al trabajar 
+            de manera local, no necesita peticiones a un servidor
+        </p>
+        <h3>¿Como se utiliza el LocalStorage?</h3>
+        <p>
+            LocalStorage es una herramienta que se utiliza vía JavaScript, donde podremos manipular nuestros datos 
+            almacenados de la forma mas conveniente. <br><br>
+            Para enviar un dato usaremos: <br>
+
+            LocalStorage.setItem("key",valor);
+            <br> <br>
+            Este es el método para almacenar información en nuestro LocalStorage.<br><br>
+            En el primer parametro "key" ingresamos 
+            el nombre del elemento y en el parametro valor ingresamos el dato que queremos almacenar en la clave.
+            <br><br><br>
+            LocalStorage.getItem("key"); 
+            <br> 
+            Para ver la información almacenada en el LocalStorage usamos el método getItem('clave');
+        </p>
+        <script>
+            //Guardar un dato en el LocalStorage
+            localStorage.setItem("Nombre","Luisa");
+            //Mostrar el dato almacenado en el localStorage
+            console.log("El dato guardado en el LocalStorage es: "+localStorage.getItem("Nombre"));
+        
+        </script>
+        <h3>JSON</h3>
+        <p>
+            Método para intercambiar datos entre JavaScript y una base de datos. En este caso lo usaremos para guardar 
+            arreglos y objetos en el LocalStorage. 
+            <br> <br>
+            1.JSON.stringify(): <br>
+            Este nos sirve para convertir arreglos y objetos en Strings
+        </p>
+        <script>
+                const persona={
+                    Identificación:12345,
+                    Nombre:"David",
+                    Apellido:"Perez",
+                    Edad:34
+                }
+              
+                //Guardar los datos de este objeto en el LocalStorage
+                localStorage.setItem('Persona1',JSON.stringify(persona));  
+        </script>
+        <p>
+            2.JSON.parse():<br>
+            Convetir la cadena de texto almacenada EN ESTE CASO en el localStorage de nuevo a un arreglo o objeto de 
+            JavaScript para poderlo manipular 
+        </p>
+        <script>
+            let persona1=JSON.parse(localStorage.getItem('Persona1'));
+            console.log(persona1);
+            //Solamente queremos imprimir el apellido de la persona
+            console.log(persona1.Apellido);
+        </script>
+        <p>
+            3.localStorage.removeItem('clave'): Se usa para eliminar una clave con su valor. <br>
+            Eliminar valores del localStorage cuando tenemos un solo valor en una clave:
+            
+        </p>
+        <script>
+            //Eliminar la clave Persona2 que esta en el localStorage
+            localStorage.removeItem('Persona2');
+            
+        </script>
+        <p>
+            4.localStorage.clear(); Limpiar TODO el localStorage: 
+        </p>
+        <h2>Practica #1</h2>
+        <form action="">
+            <label for="">Cedula:</label>
+            <input type="text" id="cedula" placeholder="Ingrese el numero de cedula">
+            <br> <br>
+            <label for="">Nombre:</label>
+            <input type="text" id="nombre" placeholder="Ingrese su nombre">
+            <br> <br>
+            <label for="">Dirección</label>
+            <input type="text" id="direccion" placeholder="Ingrese su dirección">
+            <input type="button" value="Guardar Datos" onclick="Guardar()">
+        </form>
+        <script>
+            function Guardar()
+            {
+                //Paso 1: Traer los datos que escriben en el input
+                let cedula=document.getElementById('cedula').value;
+                let nombre=document.getElementById('nombre').value;
+                let direccion=document.getElementById('direccion').value;
+                //Paso 2: Crear un objeto con los datos
+                let usuario={
+                    "Cedula":cedula,
+                    "Nombre":nombre,
+                    "Dirección":direccion
+                }
+                //Paso 3: Enviar la información al LocalStorage
+                localStorage.setItem('Usuario',JSON.stringify(usuario));
+                //Limpiar los datos del input
+                document.getElementById('cedula').value="";
+                document.getElementById('nombre').value="";
+                document.getElementById('direccion').value="";
+            }
+        </script>
+</body>
+</html>
